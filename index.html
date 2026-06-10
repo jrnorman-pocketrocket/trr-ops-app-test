@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <meta name="theme-color" content="#1F5C3A" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>TRR Operations Hub</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css" />
+</head>
+<body>
+
+<div id="offline-banner" class="offline-banner">
+  <i class="ti ti-wifi-off"></i> You're offline — submissions will save and sync when connected
+</div>
+
+<div id="app">
+
+  <!-- ── HEADER ── -->
+  <header class="app-header">
+    <button id="header-back" class="header-back" style="display:none;" aria-label="Go back">
+      <i class="ti ti-arrow-left"></i>
+    </button>
+    <div class="header-brand">
+      <div class="header-logo-mark">
+        <!-- TRR Horse SVG Mark -->
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="14" cy="14" r="13" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+          <path d="M9 20 Q9 17 11 16 Q10 14 11 12 Q12 10 14 10 Q15 9 17 10 Q18 10 18 12 L17 13 Q18 13 19 14 Q19 16 17 17 Q16 19 17 20" stroke="rgba(255,255,255,0.9)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <path d="M14 10 Q15 8 17 8 Q18 8 18 9" stroke="rgba(255,255,255,0.7)" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
+      <div class="header-text-wrap">
+        <div class="header-title" id="header-title-text">Operations Hub</div>
+        <div class="header-sub" id="header-sub-text">Tunnel Ridge Ranch</div>
+      </div>
+    </div>
+    <button class="header-bell" aria-label="Notifications">
+      <i class="ti ti-bell"></i>
+    </button>
+  </header>
+
+  <!-- ── HOME VIEW ── -->
+  <div id="view-home" class="view active">
+
+    <!-- Hero -->
+    <div class="home-hero">
+      <div class="home-hero-inner">
+        <div class="home-greeting-row">
+          <div>
+            <div id="greeting-name" class="home-greeting">Good morning 👋</div>
+            <div id="greeting-date" class="home-date"></div>
+          </div>
+        </div>
+        <!-- Announcement card -->
+        <div class="home-announcement">
+          <div class="announcement-icon-wrap">
+            <i class="ti ti-speakerphone"></i>
+          </div>
+          <div class="announcement-body">
+            <div class="announcement-label">Staff Announcement</div>
+            <div class="announcement-text">Welcome to the TRR Operations Hub. Use this app to submit all cleaning, safety and food safety records.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Category section -->
+    <div class="home-body">
+      <div class="section-header">
+        <span class="section-label">Categories</span>
+      </div>
+      <div id="category-grid" class="category-grid"></div>
+
+      <!-- Manager entry -->
+      <div class="manager-entry" onclick="openPinModal()">
+        <div class="manager-entry-icon">
+          <i class="ti ti-lock"></i>
+        </div>
+        <div class="manager-entry-text">
+          <div class="manager-entry-label">Manager Access</div>
+          <div class="manager-entry-sub">PIN required</div>
+        </div>
+        <div class="manager-entry-arrow"><i class="ti ti-chevron-right"></i></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── CATEGORY VIEW ── -->
+  <div id="view-category" class="view">
+    <div class="category-banner" id="category-banner">
+      <div class="category-banner-icon" id="category-banner-icon"></div>
+      <div>
+        <div class="category-banner-title" id="category-banner-title"></div>
+        <div class="category-banner-sub">Tunnel Ridge Ranch</div>
+      </div>
+    </div>
+    <div id="form-list" class="form-list"></div>
+  </div>
+
+  <!-- ── FORM VIEW ── -->
+  <div id="view-form" class="view">
+    <div id="form-container" class="form-container"></div>
+  </div>
+
+  <!-- ── MANAGER VIEW ── -->
+  <div id="view-manager" class="view">
+    <div class="manager-hero">
+      <div class="manager-hero-top">
+        <div>
+          <div class="manager-hero-title">Manager Dashboard</div>
+          <div class="manager-hero-sub">Tunnel Ridge Ranch</div>
+        </div>
+        <div class="manager-hero-badge">
+          <i class="ti ti-shield-check"></i>
+          <span>Manager</span>
+        </div>
+      </div>
+    </div>
+    <div id="manager-container"></div>
+  </div>
+
+  <!-- ── BOTTOM NAV ── -->
+  <nav class="bottom-nav">
+    <button class="nav-item active" data-view="home">
+      <i class="ti ti-home"></i>
+      <span>Home</span>
+    </button>
+    <button class="nav-item" data-view="cleaning" onclick="openCategory('cleaning')">
+      <i class="ti ti-sparkles"></i>
+      <span>Cleaning</span>
+    </button>
+    <button class="nav-item" data-view="safety" onclick="openCategory('safety')">
+      <i class="ti ti-shield-check"></i>
+      <span>Safety</span>
+    </button>
+    <button class="nav-item" data-view="food" onclick="openCategory('food')">
+      <i class="ti ti-temperature"></i>
+      <span>Food</span>
+    </button>
+    <button class="nav-item" data-view="manager" onclick="openPinModal()">
+      <i class="ti ti-lock"></i>
+      <span>Manager</span>
+    </button>
+  </nav>
+
+</div>
+
+<!-- ── PIN MODAL ── -->
+<div id="pin-overlay" class="modal-overlay">
+  <div class="pin-modal">
+    <div class="pin-modal-handle"></div>
+    <div class="pin-icon-wrap">
+      <i class="ti ti-lock"></i>
+    </div>
+    <div class="pin-title">Manager Access</div>
+    <div class="pin-sub">Enter your PIN to continue</div>
+    <input id="pin-input" class="pin-input" type="password" inputmode="numeric" maxlength="6" placeholder="••••" />
+    <div id="pin-error" class="pin-error"><i class="ti ti-alert-circle"></i> Incorrect PIN. Try again.</div>
+    <button id="pin-submit" class="pin-submit">Unlock</button>
+    <button id="pin-cancel" class="btn btn-ghost btn-sm" onclick="document.getElementById('pin-overlay').classList.remove('visible')">Cancel</button>
+  </div>
+</div>
+
+<!-- ── SCRIPTS ── -->
+<script src="config/app.js"></script>
+<script src="js/app.js"></script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js').catch(() => {});
+    });
+  }
+</script>
+
+</body>
+</html>
